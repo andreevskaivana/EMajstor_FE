@@ -1,0 +1,40 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "name": "Надворешно реновирање",
+      "description": "Description",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFieiqv_OZW17GK6fE_0A9sxr6z-HNHWV0TsxW_JhjnA&s"
+    },
+    {
+      "id": 2,
+      "name": "Внатрешно реновирање",
+      "description": "Description",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFieiqv_OZW17GK6fE_0A9sxr6z-HNHWV0TsxW_JhjnA&s"
+    },
+    {
+      "id": 3,
+      "name": "Промена на кров",
+      "description": "Description",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFieiqv_OZW17GK6fE_0A9sxr6z-HNHWV0TsxW_JhjnA&s"
+    },
+    {
+      "id": 4,
+      "name": "Фарбање на простории",
+      "description": "Description",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFieiqv_OZW17GK6fE_0A9sxr6z-HNHWV0TsxW_JhjnA&s"
+    },
+    {
+      "id": 5,
+      "name": "Местење на тапети",
+      "description": "Description",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFieiqv_OZW17GK6fE_0A9sxr6z-HNHWV0TsxW_JhjnA&s"
+    },
+    {
+      "id": 6,
+      "name": "Внатрешен дизајн",
+      "description": "Description",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFieiqv_OZW17GK6fE_0A9sxr6z-HNHWV0TsxW_JhjnA&s"
+    }
+  ]
+}

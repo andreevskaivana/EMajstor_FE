@@ -1,13 +1,13 @@
-import { useState } from 'react'
-
+import React, { useState } from 'react'
+import {JobCategoryCard} from "./pages/category/JobCategoryCard.jsx";
+import {CategoryPage} from "./pages/category/CategoryPage.jsx";
 function App() {
-  const [count, setCount] = useState(0)
 
-  return (
-    <>
-      
-    </>
-  )
+    return (
+        <>
+            <CategoryPage/>
+        </>
+    )
 }
 
 export default App
