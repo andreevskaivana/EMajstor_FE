@@ -1,13 +1,17 @@
-import React, { useState } from 'react'
-import {JobCategoryCard} from "./pages/category/JobCategoryCard.jsx";
-import {CategoryPage} from "./pages/category/CategoryPage.jsx";
-function App() {
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { CategoryPage } from './pages/category/CategoryPage.jsx';
+import { CompaniesPerJobPage } from './pages/companies/CompaniesPerJobPage.jsx';
 
+function App() {
     return (
-        <>
-            <CategoryPage/>
-        </>
-    )
+        <Router>
+            <Routes>
+                <Route path="/" element={<CategoryPage />} />
+                <Route path="/companies" element={<CompaniesPerJobPage />} />
+            </Routes>
+        </Router>
+    );
 }
 
-export default App
+export default App;

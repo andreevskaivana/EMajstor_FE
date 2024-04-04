@@ -8,11 +8,7 @@ export const CategoryPage = () => {
     return (
         <>
             <MainLayout/>
-            <Container>
-                <Grid >
-                    <JobCategoryCard />
-                </Grid>
-            </Container>
+           <JobCategoryCard/>
         </>
     );
 };
