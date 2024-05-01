@@ -4,6 +4,7 @@ import { Button, CardActionArea, CardActions, Container, Grid, Card } from '@mui
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
+import {Link} from "react-router-dom";
 
 export const CompanyCard = () => {
     const [companies, setCompanies] = useState([]);
@@ -16,34 +17,47 @@ export const CompanyCard = () => {
         <>
             <Container sx={{ mt: 4, mb: 2 }}>
                 {companies.map((company) => (
-                    <Grid container spacing={4} key={company.id} >
-                        <Grid item xs={12} sm={4}>
-                            <img
-                                src={company.image}
-                                alt={company.name}
-                                style={{ width: '100%', height: 'auto', maxHeight: '100px' }}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={8}>
-                            <Grid container direction="column" spacing={2}sx={{alignItems:'center'}}>
-                                <Grid item>
-                                    <Typography variant="body1">{company.description}</Typography>
-                                </Grid>
-                                <Grid item >
-                                    <Button
-                                        variant="contained"
-                                        sx={{
-                                            backgroundColor: "#575A4B",
-                                            borderRadius: '20px',
-                                            border: `1px solid #2A2C24`,
-                                        }}
-                                    >
-                                        Контакт
-                                    </Button>
-                                </Grid>
+                    <Card key={company.id} sx={{
+                        borderRadius: '12px',
+                        boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
+                        marginBottom: '16px'
+                    }}>
+                        <Grid container spacing={2} alignItems="center">
+                            <Grid item xs={12} sm={4}>
+                                <CardMedia
+                                    component="img"
+                                    height="140"
+                                    image={company.image}
+                                    alt={company.name}
+                                    sx={{ borderRadius: '12px 0 0 12px' }}
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={8}>
+                                <CardContent>
+                                    <Typography variant="body1" gutterBottom>
+                                        {company.description}
+                                    </Typography>
+                                    <CardActions>
+                                        <Button
+                                            component={Link}
+                                            to={`/details`}
+                                            sx={{
+                                                color: "#575A4B",
+                                                borderRadius: '20px',
+                                                border: `1px solid #2A2C24`,
+                                                '&:hover': {
+                                                    backgroundColor: '#2A2C24',
+                                                    color: '#fff',
+                                                }
+                                            }}
+                                        >
+                                            Контакт
+                                        </Button>
+                                    </CardActions>
+                                </CardContent>
                             </Grid>
                         </Grid>
-                    </Grid>
+                    </Card>
                 ))}
             </Container>
         </>

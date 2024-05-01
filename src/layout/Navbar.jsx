@@ -11,8 +11,10 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import {Link} from "react-router-dom";
 
-const pages = ['Понуди', 'Промоции', 'Блог','Контакт','За Нас'];
+const pages = ['Понуди','Контакт','За Нас'];
+const pageLinks = ['ponudi','kontakt', 'za-nas'];
 const settings = ['Кориснички профил', 'Кориснички подесувања','Одјава'];
 
 export const Navbar=()=>{
@@ -35,7 +37,8 @@ export const Navbar=()=>{
     };
 
     return (
-        <AppBar position="static">
+        <AppBar className='navBar'
+            position="static">
             <Container maxWidth="xl"
             sx={{
                 backgroundColor:'#816C61'
@@ -44,7 +47,6 @@ export const Navbar=()=>{
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
                             size="large"
-                            aria-label="account of current user"
                             aria-controls="menu-appbar"
                             aria-haspopup="true"
                             onClick={handleOpenNavMenu}
@@ -78,13 +80,14 @@ export const Navbar=()=>{
                         </Menu>
                     </Box>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        {pages.map((page) => (
+                        {pages.map((page,index) => (
                             <Button
                                 key={page}
-                                onClick={handleCloseNavMenu}
+                                component={Link}
+                                to={`/${pageLinks[index]}`} // Generate the path dynamically
                                 sx={{ my: 2, color: 'white', display: 'block' }}
                             >
-                                {page}
+                                <span style={{ fontFamily: "Oswald" }}>{page}</span>
                             </Button>
                         ))}
                     </Box>
