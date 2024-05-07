@@ -1,23 +1,28 @@
-import React, { useEffect, useState } from "react";
-import categoriesData from '../../assets/categories.json'
+import { useEffect, useState } from "react";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { Button, CardActionArea, CardActions, Grid, Container } from '@mui/material';
+import {Button, CardActionArea, CardActions, Grid, Container, CardMedia} from '@mui/material';
 import { Link } from "react-router-dom";
+import { CategoryService } from "../../services/category-service.js";
 
 export const JobCategoryCard = () => {
     const [categories, setCategories] = useState([]);
 
+    const fetchCategories = () => {
+        CategoryService.fetchAllCategories().then(res => {
+            setCategories(res.data);
+        });
+    }
+
     useEffect(() => {
-        setCategories(categoriesData.categories)
-    }, [])
+        fetchCategories();
+    }, []);
 
     return (
         <Container sx={{ mt: 2, mb: 2 }}>
             <Grid container spacing={2}>
-                {categories.map(category => (
+                {Array.isArray(categories) && categories.length > 0 && categories.map(category => (
                     <Grid item key={category.id} xs={12} sm={6} md={4}>
                         <Card sx={{
                             maxWidth: 345,
@@ -28,7 +33,7 @@ export const JobCategoryCard = () => {
                                 <CardMedia
                                     component="img"
                                     height="140"
-                                    image={category.image}
+                                    image={category.imageUrl}
                                     alt={category.name}
                                     sx={{ borderRadius: '12px 12px 0 0' }}
                                 />
@@ -40,9 +45,6 @@ export const JobCategoryCard = () => {
                                     <Typography gutterBottom variant="h5" component="div">
                                         {category.name}
                                     </Typography>
-                                    <Typography variant="body2" color="text.secondary">
-                                        {category.description}
-                                    </Typography>
                                 </CardContent>
                             </CardActionArea>
                             <CardActions sx={{
@@ -52,7 +54,7 @@ export const JobCategoryCard = () => {
                             }}>
                                 <Button
                                     component={Link}
-                                    to={`/companies`}
+                                    to={`/jobs/${category.id}`}
                                     sx={{
                                         color: "#575A4B",
                                         borderRadius: '20px',
@@ -65,7 +67,6 @@ export const JobCategoryCard = () => {
                                 >
                                     Види детали
                                 </Button>
-
                             </CardActions>
                         </Card>
                     </Grid>

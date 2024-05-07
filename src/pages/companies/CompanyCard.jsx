@@ -1,46 +1,52 @@
-import companiesData from '../../assets/companies.json';
-import React, { useEffect, useState } from 'react';
-import { Button, CardActionArea, CardActions, Container, Grid, Card } from '@mui/material';
-import CardMedia from '@mui/material/CardMedia';
+import { useEffect, useState } from 'react';
+import { Button, CardActions, Container, Grid, Card } from '@mui/material';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import {Link} from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { JobsService } from "../../services/jobs-service.js"; // Updated import
 
 export const CompanyCard = () => {
-    const [companies, setCompanies] = useState([]);
+    const { id } = useParams();
+    const [jobs, setJobs] = useState([]);
 
+    const fetchJobs = () => {
+        JobsService.fetchJobsByCategory(id).then(res => {
+            setJobs(res.data);
+        });
+    }
+    console.log(jobs)
     useEffect(() => {
-        setCompanies(companiesData.companies);
-    }, []);
+        fetchJobs();
+    }, [id]);
 
     return (
         <>
             <Container sx={{ mt: 4, mb: 2 }}>
-                {companies.map((company) => (
-                    <Card key={company.id} sx={{
+                {Array.isArray(jobs) && jobs.length > 0 && jobs.map(job => (
+                    <Card key={job.id} sx={{
                         borderRadius: '12px',
                         boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
                         marginBottom: '16px'
                     }}>
                         <Grid container spacing={2} alignItems="center">
                             <Grid item xs={12} sm={4}>
-                                <CardMedia
-                                    component="img"
-                                    height="140"
-                                    image={company.image}
-                                    alt={company.name}
-                                    sx={{ borderRadius: '12px 0 0 12px' }}
-                                />
+                                {/*<CardMedia*/}
+                                {/*    component="img"*/}
+                                {/*    height="140"*/}
+                                {/*    image={provider.image}*/}
+                                {/*    alt={provider.name}*/}
+                                {/*    sx={{ borderRadius: '12px 0 0 12px' }}*/}
+                                {/*/>*/}
                             </Grid>
                             <Grid item xs={12} sm={8}>
                                 <CardContent>
                                     <Typography variant="body1" gutterBottom>
-                                        {company.description}
+                                        {job.description}
                                     </Typography>
                                     <CardActions>
                                         <Button
                                             component={Link}
-                                            to={`/details`}
+                                            to={`/details/${job.id}`}
                                             sx={{
                                                 color: "#575A4B",
                                                 borderRadius: '20px',

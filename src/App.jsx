@@ -1,5 +1,4 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom';
 import { CategoryPage } from './pages/category/CategoryPage.jsx';
 import { CompaniesPerJobPage } from './pages/companies/CompaniesPerJobPage.jsx';
 import {CompanyDetails} from "./pages/company/CompanyDetails.jsx";
@@ -7,17 +6,20 @@ import {Navbar} from "./layout/Navbar.jsx";
 import './index.css'
 import {LogInCard} from "./pages/log-in/LogInCard.jsx";
 import {RegisterCard} from "./pages/RegisterCard.jsx";
+import {CompanyRating} from "./pages/rating/CompanyRating.jsx";
 
 function App() {
     return (
         <Router>
             <Navbar/>
             <Routes>
-                <Route path="/" element={<CategoryPage />} />
-                <Route path="/companies" element={<CompaniesPerJobPage />} />
-                <Route path="/details" element={<CompanyDetails/>}/>
+                <Route path="/home" element={<CategoryPage />} />
+                <Route path="/jobs/:id" element={<CompaniesPerJobPage />} />
+                <Route path="/details/:id" element={<CompanyDetails/>}/>
+                <Route path="/rating" element={<CompanyRating/>}/>
                 <Route path="/login" element={<LogInCard/>}/>
                 <Route path="/register" element={<RegisterCard/>}/>
+                <Route path="*" element={<Navigate to="/home"/>}/>
             </Routes>
         </Router>
     );
