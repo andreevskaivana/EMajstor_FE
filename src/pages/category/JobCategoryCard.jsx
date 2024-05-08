@@ -54,7 +54,7 @@ export const JobCategoryCard = () => {
                             }}>
                                 <Button
                                     component={Link}
-                                    to={`/jobs/${category.id}`}
+                                    to={`/jobs/${category.category_id}`}
                                     sx={{
                                         color: "#575A4B",
                                         borderRadius: '20px',
