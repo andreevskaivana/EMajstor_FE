@@ -24,7 +24,16 @@ export const CompanyCard = () => {
     }, [id]);
 
     return (
-        <Container sx={{ mt: 4, mb: 2 }}>
+        <Container sx={{ mt: 4, mb: 4  }}>
+            <Grid container spacing={2} justify="center">
+                <Grid item xs={12} sm={12}>
+                    <Typography align="center">
+                        Нудиш некаква услуга која ја нема на листата?
+                    </Typography>
+                    <a href="#" style={{ display: 'block', textAlign: 'center' }}>Постави ја тука</a>
+                </Grid>
+            </Grid>
+
             {Array.isArray(jobs) && jobs.length > 0 && jobs.map(job => (
                 <Card key={job.id} sx={{
                     borderRadius: '12px',

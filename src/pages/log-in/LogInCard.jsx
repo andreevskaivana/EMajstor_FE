@@ -1,17 +1,34 @@
-import {Button, Grid, TextField, Container,FormControl} from "@mui/material";
+import { useState } from "react";
+import { Button, Grid, TextField, Container, FormControl } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import {Link} from "react-router-dom";
 import Typography from "@mui/material/Typography";
+import axios from "../../config/axios";
+import {Link,useNavigate} from "react-router-dom"; // Include BrowserRouter
 
 export const LogInCard = () => {
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const navigate = useNavigate();
+
+    const handleLogin = async () => {
+        try {
+            const response = await axios.post("api/auth/signin", {
+                email: username,
+                password: password
+            });
+            localStorage.setItem("token", response.data.token);
+            navigate("/categories");
+        } catch (error) {
+            navigate("/asset");
+            console.error(error);
+        }
+    };
+
     return (
         <Grid container justifyContent="center" alignItems="center">
-            <Container sx={{mt: 6, mb: 2}}>
+            <Container sx={{ mt: 6, mb: 2 }}>
                 <Grid container justifyContent="center" alignItems="center"
-                      sx={{
-                          mt: 2,
-                          mb: 2
-                      }}>
+                      sx={{ mt: 2, mb: 2 }}>
                     <AccountCircleIcon fontSize="large"/>
                 </Grid>
                 <Grid container justifyContent="center" alignItems="center">
@@ -19,17 +36,16 @@ export const LogInCard = () => {
                 </Grid>
 
                 <Grid container spacing={2} justifyContent="center"
-                      sx={{
-                          mt: 4,
-                          mb: 2
-                      }}>
-                    <FormControl sx={{ width: '50%'}}>
+                      sx={{ mt: 4, mb: 2 }}>
+                    <FormControl sx={{ width: '50%' }}>
                         <TextField
                             id="username"
                             name="username"
                             label="Внесете корисничко име"
                             variant="outlined"
                             margin="normal"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
                         />
                         <TextField
                             id="password"
@@ -38,13 +54,12 @@ export const LogInCard = () => {
                             type="password"
                             variant="outlined"
                             margin="normal"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                         />
                     </FormControl>
                     <Grid container spacing={2} justifyContent="center"
-                          sx={{
-                              mt: 2,
-                              mb: 2
-                          }}>
+                          sx={{ mt: 2, mb: 2 }}>
                         <Button
                             type="submit"
                             variant="contained"
@@ -56,12 +71,14 @@ export const LogInCard = () => {
                                 },
                                 color: '#fff',
                                 borderRadius: '12px',
-                            }}>
+                            }}
+                            onClick={handleLogin}
+                        >
                             Најави се
                         </Button>
                     </Grid>
                     <Grid container spacing={2} justifyContent="center"
-                    sx={{mt:2}}>
+                          sx={{ mt: 2 }}>
                         <Link to="/register">
                             Немаш профил?
                         </Link>
