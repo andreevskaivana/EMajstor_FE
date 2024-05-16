@@ -1,46 +1,52 @@
-import { useState } from "react";
-import { Button, Grid, TextField, Container, FormControl } from "@mui/material";
+import {useState}  from "react";
+import {Button, Grid, TextField, Container, FormControl} from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import {Link, useNavigate} from "react-router-dom";
+import instance from "../../config/axios.js"
 import Typography from "@mui/material/Typography";
-import axios, {setAuthorization} from "../../config/axios";
-import {Link,useNavigate} from "react-router-dom"; // Include BrowserRouter
 
-export const LogInCard = () => {
+
+export const RegisterCard=()=>{
     const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword,setConfirmPassword] = useState("");
     const navigate = useNavigate();
 
-    const handleLogin = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await axios.post("api/auth/signin", {
-                email: username,
-                password: password
-            });
-            localStorage.setItem("token", response.data.token);
-            setAuthorization(true);
-            navigate("/categories");
-        } catch (error) {
-            navigate("/asset");
-            console.error("Login error:", error);
+    const handleRegister = async () => {
+        if (password !== confirmPassword) {
+            alert("Лозинките не се совпаѓаат");
+            return;
         }
+        await instance.post("api/auth/signup", {
+            username: username,
+            email: email,
+            password: password
+        }).then(response => {
+            if (response.status === 200) {
+                navigate("/login");
+            }
+        }).catch(error => {
+            console.error(error);
+        });
     };
+
 
     return (
         <Grid container justifyContent="center" alignItems="center">
-            <Container sx={{ mt: 6, mb: 2 }}>
-                <form onSubmit={handleLogin}>
+            <Container sx={{mt: 6, mb: 2}}>
+                <from onSubmit={handleRegister}>
                     <Grid container justifyContent="center" alignItems="center"
-                          sx={{ mt: 2, mb: 2 }}>
+                          sx={{mt: 2, mb: 2 }}>
                         <AccountCircleIcon fontSize="large"/>
                     </Grid>
                     <Grid container justifyContent="center" alignItems="center">
-                        <Typography variant="h6">Најава</Typography>
+                        <Typography variant="h6">Регистрација</Typography>
                     </Grid>
 
                     <Grid container spacing={2} justifyContent="center"
-                          sx={{ mt: 4, mb: 2 }}>
-                        <FormControl sx={{ width: '50%' }}>
+                          sx={{mt: 4, mb: 2}}>
+                        <FormControl sx={{ width: '45%'}}>
                             <TextField
                                 id="username"
                                 name="username"
@@ -49,6 +55,14 @@ export const LogInCard = () => {
                                 margin="normal"
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
+                            />
+                            <TextField
+                                name="email"
+                                label="Внесете e-mail адреса"
+                                variant="outlined"
+                                margin="normal"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                             />
                             <TextField
                                 id="password"
@@ -60,9 +74,19 @@ export const LogInCard = () => {
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                             />
+                            <TextField
+                                id="password"
+                                name="password"
+                                label="Повтори ја лозинката"
+                                type="password"
+                                variant="outlined"
+                                margin="normal"
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
+                            />
                         </FormControl>
                         <Grid container spacing={2} justifyContent="center"
-                              sx={{ mt: 2, mb: 2 }}>
+                              sx={{mt: 2,mb: 2 }}>
                             <Button
                                 type="submit"
                                 variant="contained"
@@ -75,19 +99,20 @@ export const LogInCard = () => {
                                     color: '#fff',
                                     borderRadius: '12px',
                                 }}
+                                onClick={handleRegister}
                             >
-                                Најави се
+                                Регистрирај се
                             </Button>
                         </Grid>
                         <Grid container spacing={2} justifyContent="center"
-                              sx={{ mt: 2 }}>
-                            <Link to="/register">
-                                Немаш профил?
+                              sx={{mt:2}}>
+                            <Link to="/login">
+                                Имаш профил?
                             </Link>
                         </Grid>
                     </Grid>
-                </form>
+                </from>
             </Container>
         </Grid>
     );
-};
+}

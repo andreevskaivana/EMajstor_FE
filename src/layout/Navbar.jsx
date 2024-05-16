@@ -11,13 +11,14 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
-const pages = ['Понуди','Контакт','За Нас'];
-const pageLinks = ['ponudi','kontakt', 'za-nas'];
-const settings = ['Кориснички профил', 'Кориснички подесувања','Одјава'];
+const pages = ['Понуди', 'Контакт', 'За Нас'];
+const pageLinks = ['/categories', '/contact', '/about'];
 
-export const Navbar=()=>{
+const settings = ['Кориснички профил', 'Кориснички подесувања', 'Одјава'];
+
+export const Navbar = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -38,11 +39,11 @@ export const Navbar=()=>{
 
     return (
         <AppBar className='navBar'
-            position="static">
+                position="static">
             <Container maxWidth="xl"
-            sx={{
-                backgroundColor:'#816C61'
-            }}>
+                       sx={{
+                           backgroundColor: '#816C61'
+                       }}>
                 <Toolbar disableGutters>
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
@@ -72,19 +73,21 @@ export const Navbar=()=>{
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
-                            {pages.map((page) => (
+                            {pages.map((page, index) => (
                                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page}</Typography>
+                                    <Typography textAlign="center">
+                                        <Link to={pageLinks[index]} style={{ textDecoration: 'none', color: 'inherit' }}>{page}</Link>
+                                    </Typography>
                                 </MenuItem>
                             ))}
                         </Menu>
                     </Box>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        {pages.map((page,index) => (
+                        {pages.map((page, index) => (
                             <Button
                                 key={page}
                                 component={Link}
-                                to={`/${pageLinks[index]}`} // Generate the path dynamically
+                                to={pageLinks[index]} // Generate the path dynamically
                                 sx={{ my: 2, color: 'white', display: 'block' }}
                             >
                                 <span style={{ fontFamily: "Oswald" }}>{page}</span>
@@ -96,9 +99,9 @@ export const Navbar=()=>{
                         <Tooltip title="Кориснички профил">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                                 <Avatar src="/static/images/avatar/2.jpg" sx={{
-                                    backgroundColor:'#ffffff',
-                                    color:'#2A2C24'
-                                }}/>
+                                    backgroundColor: '#ffffff',
+                                    color: '#2A2C24'
+                                }} />
                             </IconButton>
                         </Tooltip>
                         <Menu

@@ -5,18 +5,25 @@ const instance = axios.create({
         "Access-Control-Allow-Origin": "*",
     }
 });
-//
-// instance.interceptors.request.use(
-//     (config) => {
-//         const token = localStorage.getItem("token");
-//         if (token) {
-//             config.headers.Authorization = `Bearer ${token}`;
-//         }
-//         return config;
-//     },
-//     (error) => {
-//         return Promise.reject(error);
-//     }
-// )
+let isAuthorized = false;
+instance.interceptors.request.use(
+    (config) => {
+        if (isAuthorized) {
+            isAuthorized=true;
+            const token = localStorage.getItem("token");
+            if (token) {
+                config.headers.Authorization = `Bearer ${token}`;
+            }
+        }
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error);
+    }
+);
+
+export const setAuthorization = (authorized) => {
+    isAuthorized=authorized;
+}
 export default instance;
 

@@ -1,0 +1,64 @@
+{
+  "team": [
+    {
+      "id": 1,
+      "name": "Ивана Андреевска",
+      "role": "Team Lead & Front End Developer",
+      "image": "ivana"
+    },
+    {
+      "id": 2,
+      "name": "Марко Петров",
+      "role": "Back End Developer",
+      "image": "marko"
+    },
+    {
+      "id": 3,
+      "name": "Андон Аџи-Андов",
+      "role": "Back End Developer",
+      "image": "andon"
+    },
+    {
+      "id": 4,
+      "name": "Анастасија Славковска",
+      "role": "Back End Developer",
+      "image": "anastasija"
+    },
+    {
+      "id": 5,
+      "name": "Фазли Беќир",
+      "role": "Back End Developer",
+      "image": "bekir"
+    },
+    {
+      "id": 6,
+      "name": "Мимоза Шопкоска",
+      "role": "Project Manager",
+      "image": "mimoza"
+    },
+    {
+      "id": 7,
+      "name": "Крсте Ѓорѓиев",
+      "role": "Front End Developer",
+      "image": "krste"
+    },
+    {
+      "id": 8,
+      "name": "Верче Андонова",
+      "role": "UI/UX Designer",
+      "image": "verce"
+    },
+    {
+      "id": 9,
+      "name": "Анета Димовска",
+      "role": "Project Manager",
+      "image": "aneta"
+    },
+    {
+      "id": 10,
+      "name": "Лепа Симоновска",
+      "role": "UI/UX Designer",
+      "image": "lepa"
+    }
+  ]
+}
