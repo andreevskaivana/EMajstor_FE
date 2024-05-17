@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import { Link, useParams } from "react-router-dom";
 import { JobsService } from "../../services/jobs-service.js";
 import { CompanyRating } from "../rating/CompanyRating.jsx";
+import { AddCompany } from "../company/AddCompany.jsx";
 
 export const CompanyCard = () => {
     const { id } = useParams();
@@ -47,22 +48,28 @@ export const CompanyCard = () => {
 
     return (
         <Container sx={{ mt: 4, mb: 4 }}>
-            <Typography variant="body2" color="textSecondary">
-                Подреди ги ислугите според цена
-            </Typography>
-            <Select
-                value={sortOrder}
-                onChange={handleSortChange}
-                displayEmpty
-                inputProps={{ 'aria-label': 'Sort Order' }}
-                sx={{ marginBottom: '20px' }}
-            >
-                <MenuItem value="asc">Најниски до највисоки цени</MenuItem>
-                <MenuItem value="desc">Највисоки до најниски цени</MenuItem>
-            </Select>
+            <Grid container justifyContent="space-between" alignItems="center" sx={{ marginBottom: '20px' }}>
+                <Grid item xs={12} sm={6}>
+                    <AddCompany />
+                </Grid>
+                <Grid item xs={12} sm={6} container direction="column" alignItems="flex-end">
+                    <Typography variant="body2" color="textSecondary">
+                        Подреди ги ислугите според цена
+                    </Typography>
+                    <Select
+                        value={sortOrder}
+                        onChange={handleSortChange}
+                        displayEmpty
+                        inputProps={{ 'aria-label': 'Sort Order' }}
+                    >
+                        <MenuItem value="asc">Најниски до највисоки цени</MenuItem>
+                        <MenuItem value="desc">Највисоки до најниски цени</MenuItem>
+                    </Select>
+                </Grid>
+            </Grid>
 
             {Array.isArray(jobs) && jobs.length > 0 && jobs.map(job => (
-                <Card key={job.id} sx={{
+                <Card key={job.job_id} sx={{
                     borderRadius: '12px',
                     boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
                     marginBottom: '16px'
@@ -75,12 +82,12 @@ export const CompanyCard = () => {
                             borderTopLeftRadius: '12px',
                             borderTopRightRadius: '12px'
                         }}>
-                            <Typography variant="h6">{job.title}</Typography>
+                            <Typography variant="h6" sx={{fontFamily: 'Oswald'}}>{job.title}</Typography>
                         </Grid>
                         <Grid container item xs={12} spacing={2}>
                             <Grid item xs={12} sm={6}>
                                 <CardContent sx={{ textAlign: 'center' }}>
-                                    <Typography variant="body1" gutterBottom>
+                                    <Typography variant="body1" gutterBottom >
                                         Опис на работа: {job.description}
                                     </Typography>
                                     <Typography variant="body1" gutterBottom>
@@ -114,7 +121,7 @@ export const CompanyCard = () => {
                                     <Typography variant="body1" gutterBottom>
                                         Просечна оцена на услуга: {job.number_reviews > 0 ? (job.total_grades / job.number_reviews).toFixed(2) : "Нема оцени"}
                                     </Typography>
-                                    <CompanyRating jobId={job.id} />
+                                    <CompanyRating jobId={job.job_id} />
                                 </CardContent>
                             </Grid>
                         </Grid>

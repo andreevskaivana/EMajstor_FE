@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
-import {Button, CardActions, Container, Grid, Card, Modal, FormControl, Input} from '@mui/material';
+import {Button, CardActions, Container, Grid, Card, Modal, FormControl, Input, CardMedia} from '@mui/material';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import {Link} from "react-router-dom";
@@ -46,56 +46,6 @@ export const CompanyDetails = () => {
 
     return (
         <>
-            <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="add-project-modal-title"
-                aria-describedby="add-project-modal-description"
-            >
-                <Box
-                    sx={{
-                        position: "absolute",
-                        top: "50%",
-                        left: "50%",
-                        transform: "translate(-50%, -50%)",
-                        width: 400,
-                        bgcolor: "background.paper",
-                        boxShadow: 24,
-                        p: 4,
-                        borderRadius: 3
-                    }}
-                >
-                    <Typography variant="body1" mt={2} mb={2} align="center" sx={{fontFamily: "sans-serif"}}>
-                        Креирај оглас
-                    </Typography>
-                    <FormControl fullWidth sx={{mt: 1}}>
-                        <Input placeholder={"Внеси име на услугата"}/>
-                    </FormControl>
-                    <FormControl fullWidth sx={{mt: 1}}>
-                        <Input placeholder={"Внеси опис на услугата"}/>
-                    </FormControl>
-                    <FormControl fullWidth sx={{mt: 1}}>
-                        <Input placeholder={"Внеси цена за услугата"}/>
-                    </FormControl>
-                    <FormControl fullWidth sx={{mt: 1}}>
-                        <Input placeholder={"Одбери категорија за услугата"}/>
-                    </FormControl>
-                    <FormControl fullWidth sx={{mt: 1}}>
-                        <Input placeholder={"Внеси име на компанијата"}/>
-                    </FormControl>
-                    <Box sx={{display: 'flex', justifyContent: 'center', mt: 3}}>
-                        <Button sx={{
-                            color: "#575A4B",
-                            borderRadius: '20px',
-                            border: `1px solid #2A2C24`,
-                            '&:hover': {
-                                backgroundColor: '#2A2C24',
-                                color: '#fff',
-                            }
-                        }} onClick={handleClose}>КРЕИРАЈ</Button>
-                    </Box>
-                </Box>
-            </Modal>
             <Container sx={{mt: 4, mb: 2}}>
                 {providers.map(provider => (
                     <Card key={provider.id} sx={{
@@ -106,22 +56,46 @@ export const CompanyDetails = () => {
                         <Grid container spacing={2}>
                             <Grid item xs={12} sx={{
                                 textAlign: 'center',
-                                padding: '16px',
-                                backgroundColor: '#f0f0f0',
+                                backgroundColor: '#575A4B',
                                 borderTopLeftRadius: '12px',
                                 borderTopRightRadius: '12px'
                             }}>
-                                <Typography variant="h6">{provider.name}</Typography>
+                                <Typography variant="h5" sx={{
+                                    mt: 1,
+                                    mb: 1,
+                                    color: 'white',
+                                    fontFamily: 'Oswald'
+                                }}>{provider.name}</Typography>
                             </Grid>
-                            <Grid item xs={12} sm={6}>
+                            <Grid item xs={12} sm={3} sx={{textAlign: 'center'}}>
+                                <CardMedia
+                                    component="img"
+                                    image={provider.imageUrl}
+                                    alt={provider.name}
+                                    sx={{borderRadius: '12px', maxHeight: '200px', width: '100%', objectFit: 'cover'}}
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={4}>
                                 <CardContent>
+                                    <Typography gutterBottom sx={{fontWeight: 'medium',fontFamily: 'Oswald'}}>
+                                        Повеќе околу компанијата:
+                                    </Typography>
                                     <Typography variant="body1" gutterBottom>
                                         {provider.description}
                                     </Typography>
+                                    <Typography  gutterBottom sx={{fontWeight: 'medium',fontFamily: 'Oswald'}}>
+                                        Телефонски број:
+                                    </Typography>
+                                    <Typography variant="body1" gutterBottom>
+                                        {provider.phoneNumber}
+                                    </Typography>
                                 </CardContent>
                             </Grid>
-                            <Grid item xs={12} sm={6}>
+                            <Grid item xs={12} sm={5}>
                                 <CardContent>
+                                    <Typography gutterBottom sx={{fontWeight: 'medium',fontFamily: 'Oswald'}}>
+                                        Локација на компанијата:
+                                    </Typography>
                                     <Typography variant="body1" gutterBottom>
                                         {provider.location.city}
                                     </Typography>
@@ -131,7 +105,7 @@ export const CompanyDetails = () => {
                         <CardActions sx={{justifyContent: 'center'}}>
                             <Button
                                 component={Link}
-                                to={`/rating`}
+                                to={`/asset`}
                                 sx={{
                                     color: "#575A4B",
                                     borderRadius: '20px',

@@ -38,12 +38,8 @@ export const Navbar = () => {
     };
 
     return (
-        <AppBar className='navBar'
-                position="static">
-            <Container maxWidth="xl"
-                       sx={{
-                           backgroundColor: '#816C61'
-                       }}>
+        <AppBar position="static" sx={{ backgroundColor: 'rgba(129, 108, 97, 0.8)', backdropFilter: 'blur(10px)' }}>
+            <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
@@ -51,7 +47,7 @@ export const Navbar = () => {
                             aria-controls="menu-appbar"
                             aria-haspopup="true"
                             onClick={handleOpenNavMenu}
-                            color="#2A2C24"
+                            color="inherit"
                         >
                             <MenuIcon />
                         </IconButton>
@@ -76,7 +72,7 @@ export const Navbar = () => {
                             {pages.map((page, index) => (
                                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                                     <Typography textAlign="center">
-                                        <Link to={pageLinks[index]} style={{ textDecoration: 'none', color: 'inherit' }}>{page}</Link>
+                                        <Link to={pageLinks[index]} style={{ textDecoration: 'none', color: '#2A2C24' }}>{page}</Link>
                                     </Typography>
                                 </MenuItem>
                             ))}
@@ -87,21 +83,17 @@ export const Navbar = () => {
                             <Button
                                 key={page}
                                 component={Link}
-                                to={pageLinks[index]} // Generate the path dynamically
-                                sx={{ my: 2, color: 'white', display: 'block' }}
+                                to={pageLinks[index]}
+                                sx={{ my: 2, color: 'white', display: 'block', fontFamily: 'Oswald', fontWeight: 'bold' }}
                             >
-                                <span style={{ fontFamily: "Oswald" }}>{page}</span>
+                                {page}
                             </Button>
                         ))}
                     </Box>
-
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Кориснички профил">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar src="/static/images/avatar/2.jpg" sx={{
-                                    backgroundColor: '#ffffff',
-                                    color: '#2A2C24'
-                                }} />
+                                <Avatar src="/static/images/avatar/2.jpg" sx={{ backgroundColor: '#ffffff', color: '#2A2C24' }} />
                             </IconButton>
                         </Tooltip>
                         <Menu

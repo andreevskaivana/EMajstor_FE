@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { Container, Grid, Rating } from "@mui/material";
 import Typography from "@mui/material/Typography";
+import {JobsService} from "../../services/jobs-service.js";
 
 export const CompanyRating = ({ jobId }) => {
     const [value, setValue] = useState(0);
-
+    console.log(jobId)
     return (
         <Container>
             <Grid container justifyContent="center" spacing={2}>
@@ -22,6 +23,7 @@ export const CompanyRating = ({ jobId }) => {
                         value={value}
                         onChange={(event, newValue) => {
                             setValue(newValue);
+                            JobsService.gradeJob(jobId,newValue);
                         }}
                     />
                 </Grid>

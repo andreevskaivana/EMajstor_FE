@@ -1,9 +1,9 @@
-import {Button, Container, FormControl, Grid, Input, Modal} from "@mui/material";
+import { Button, Container, FormControl, Grid, Input, Modal } from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import  {useState} from "react";
+import { useState } from "react";
 
-export const AddCompany=()=>{
+export const AddCompany = () => {
     const [open, setOpen] = useState(false);
 
     const handleClose = () => {
@@ -12,7 +12,8 @@ export const AddCompany=()=>{
     const handleOpen = () => {
         setOpen(true);
     };
-    return(
+
+    return (
         <>
             <Modal
                 open={open}
@@ -33,25 +34,25 @@ export const AddCompany=()=>{
                         borderRadius: 3
                     }}
                 >
-                    <Typography variant="body1" mt={2} mb={2} align="center" sx={{fontFamily: "sans-serif"}}>
+                    <Typography variant="h6" mt={2} mb={2} align="center" sx={{ fontFamily: "Oswald" }}>
                         Креирај оглас
                     </Typography>
-                    <FormControl fullWidth sx={{mt: 1}}>
-                        <Input placeholder={"Внеси име на услугата"}/>
+                    <FormControl fullWidth sx={{ mt: 1 }}>
+                        <Input placeholder={"Внеси име на услугата"} />
                     </FormControl>
-                    <FormControl fullWidth sx={{mt: 1}}>
-                        <Input placeholder={"Внеси опис на услугата"}/>
+                    <FormControl fullWidth sx={{ mt: 1 }}>
+                        <Input placeholder={"Внеси опис на услугата"} />
                     </FormControl>
-                    <FormControl fullWidth sx={{mt: 1}}>
-                        <Input placeholder={"Внеси цена за услугата"}/>
+                    <FormControl fullWidth sx={{ mt: 1 }}>
+                        <Input placeholder={"Внеси цена за услугата"} />
                     </FormControl>
-                    <FormControl fullWidth sx={{mt: 1}}>
-                        <Input placeholder={"Одбери категорија за услугата"}/>
+                    <FormControl fullWidth sx={{ mt: 1 }}>
+                        <Input placeholder={"Одбери категорија за услугата"} />
                     </FormControl>
-                    <FormControl fullWidth sx={{mt: 1}}>
-                        <Input placeholder={"Внеси име на компанијата"}/>
+                    <FormControl fullWidth sx={{ mt: 1 }}>
+                        <Input placeholder={"Внеси име на компанијата"} />
                     </FormControl>
-                    <Box sx={{display: 'flex', justifyContent: 'center', mt: 3}}>
+                    <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
                         <Button sx={{
                             color: "#575A4B",
                             borderRadius: '20px',
@@ -64,35 +65,25 @@ export const AddCompany=()=>{
                     </Box>
                 </Box>
             </Modal>
-            <Container sx={{mt: 4, mb: 4}}>
-                <Grid container spacing={2} justify="center">
-                    <Grid item xs={12} sm={12}>
-                        <Typography align="center" sx={{mb: 1}}>
-                            Нудиш некаква услуга која ја нема на листата?
-                        </Typography>
-                        <Box sx={{textAlign: 'center'}}>
-                            <Button
-                                href="#"
-                                sx={{
-                                    display: 'inline-block',
-                                    textAlign: 'center',
-                                    color: "#575A4B",
-                                    borderRadius: '20px',
-                                    border: `1px solid #2A2C24`,
-                                    '&:hover': {
-                                        backgroundColor: '#2A2C24',
-                                        color: '#fff',
-                                    }
-
-                                }}
-                                onClick={handleOpen}
-                            >
-                                Постави ја тука
-                            </Button>
-                        </Box>
-                    </Grid>
-                </Grid>
-            </Container>
+            <Box sx={{ mb: 2 }}>
+                <Typography sx={{ mb: 1 }} variant="body2" color="textSecondary">
+                    Нудиш некаква услуга која ја нема на листата?
+                </Typography>
+                <Button
+                    sx={{
+                        textAlign: 'center',
+                        color: "#575A4B",
+                        border: `1px solid #2A2C24`,
+                        '&:hover': {
+                            backgroundColor: '#2A2C24',
+                            color: '#fff',
+                        }
+                    }}
+                    onClick={handleOpen}
+                >
+                    Постави ја тука
+                </Button>
+            </Box>
         </>
-    )
+    );
 }
