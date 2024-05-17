@@ -26,7 +26,7 @@ function App() {
                 <Route path="/asset" element={<Asset/>}/>
                 <Route path="/about" element={<AboutUs/>}/>
                 <Route path="/contact" element={<Contact/>}/>
-                <Route path="*" element={<Navigate to="/categories"/>}/>
+                <Route path="*" element={<Navigate to="/home"/>}/>
             </Routes>
         </Router>
     );

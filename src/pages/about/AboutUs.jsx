@@ -9,7 +9,7 @@ export const AboutUs = () => {
                 {team.map((member) => (
                     <ImageListItem key={member.id} cols={1}>
                         <img
-                            src={`/src/assets/${member.image}.jpg`}
+                            src={`/src/assets/members/${member.image}.jpg`}
                             alt={member.name}
                             loading="lazy"
                         />

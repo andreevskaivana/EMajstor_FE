@@ -7,7 +7,10 @@ import Typography from "@mui/material/Typography";
 
 
 export const RegisterCard=()=>{
+    const [firstName,setFirstName] = useState("");
+    const [lastName,setLastName] = useState("");
     const [username, setUsername] = useState("");
+    const [phoneNumber,setPhoneNumber]=useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword,setConfirmPassword] = useState("");
@@ -19,7 +22,10 @@ export const RegisterCard=()=>{
             return;
         }
         await instance.post("api/auth/signup", {
+            firstName:firstName,
+            lastName:lastName,
             username: username,
+            phoneNumber: phoneNumber,
             email: email,
             password: password
         }).then(response => {
@@ -47,6 +53,33 @@ export const RegisterCard=()=>{
                     <Grid container spacing={2} justifyContent="center"
                           sx={{mt: 4, mb: 2}}>
                         <FormControl sx={{ width: '45%'}}>
+                            <TextField
+                                id="firstName"
+                                name="firstName"
+                                label="Внесете име"
+                                variant="outlined"
+                                margin="normal"
+                                value={firstName}
+                                onChange={(e) => setFirstName(e.target.value)}
+                            />
+                            <TextField
+                                id="lastName"
+                                name="lastName"
+                                label="Внесете презиме"
+                                variant="outlined"
+                                margin="normal"
+                                value={lastName}
+                                onChange={(e) => setLastName(e.target.value)}
+                            />
+                            <TextField
+                                id="phoneNumber"
+                                name="phoneNumber"
+                                label="Внесете телефонски број"
+                                variant="outlined"
+                                margin="normal"
+                                value={phoneNumber}
+                                onChange={(e) => setPhoneNumber(e.target.value)}
+                            />
                             <TextField
                                 id="username"
                                 name="username"
