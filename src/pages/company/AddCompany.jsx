@@ -1,16 +1,43 @@
-import { Button, Container, FormControl, Grid, Input, Modal } from "@mui/material";
+import { Button, FormControl, Input, Modal, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import { useState } from "react";
+import { JobsService } from "../../services/jobs-service.js";
 
-export const AddCompany = () => {
+export const AddCompany = ({ categoryId }) => {
     const [open, setOpen] = useState(false);
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [price, setPrice] = useState(0);
 
+    console.log(categoryId)
     const handleClose = () => {
         setOpen(false);
     };
+
     const handleOpen = () => {
         setOpen(true);
+    };
+
+    const handleTitleChange = (e) => {
+        setTitle(e.target.value);
+    };
+
+    const handleDescriptionChange = (e) => {
+        setDescription(e.target.value);
+    };
+
+    const handlePriceChange = (e) => {
+        setPrice(e.target.value);
+    };
+
+    const addJob = () => {
+        JobsService.addJob(title, description, price,jobProviderId,categoryId)
+            .then(() => {
+                handleClose();
+            })
+            .catch((error) => {
+                console.error("Error adding job: ", error);
+            });
     };
 
     return (
@@ -34,42 +61,56 @@ export const AddCompany = () => {
                         borderRadius: 3
                     }}
                 >
-                    <Typography variant="h6" mt={2} mb={2} align="center" sx={{ fontFamily: "Oswald" }}>
+                    <Typography variant="h6" mt={2} mb={2} align="center">
                         Креирај оглас
                     </Typography>
                     <FormControl fullWidth sx={{ mt: 1 }}>
-                        <Input placeholder={"Внеси име на услугата"} />
+                        <Input
+                            placeholder="Внеси име на услугата"
+                            value={title}
+                            onChange={handleTitleChange}
+                        />
                     </FormControl>
                     <FormControl fullWidth sx={{ mt: 1 }}>
-                        <Input placeholder={"Внеси опис на услугата"} />
+                        <Input
+                            placeholder="Внеси опис на услугата"
+                            value={description}
+                            onChange={handleDescriptionChange}
+                        />
                     </FormControl>
                     <FormControl fullWidth sx={{ mt: 1 }}>
-                        <Input placeholder={"Внеси цена за услугата"} />
-                    </FormControl>
-                    <FormControl fullWidth sx={{ mt: 1 }}>
-                        <Input placeholder={"Одбери категорија за услугата"} />
-                    </FormControl>
-                    <FormControl fullWidth sx={{ mt: 1 }}>
-                        <Input placeholder={"Внеси име на компанијата"} />
+                        <Input
+                            placeholder="Внеси цена за услугата"
+                            type="number"
+                            value={price}
+                            onChange={handlePriceChange}
+                        />
                     </FormControl>
                     <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
-                        <Button sx={{
-                            color: "#575A4B",
-                            borderRadius: '20px',
-                            border: `1px solid #2A2C24`,
-                            '&:hover': {
-                                backgroundColor: '#2A2C24',
-                                color: '#fff',
-                            }
-                        }} onClick={handleClose}>КРЕИРАЈ</Button>
+                        <Button
+                            onClick={addJob}
+                            sx={{
+                                color: "#575A4B",
+                                borderRadius: '20px',
+                                border: `1px solid #2A2C24`,
+                                '&:hover': {
+                                    backgroundColor: '#2A2C24',
+                                    color: '#fff',
+                                }
+                            }}
+                        >
+                            КРЕИРАЈ
+                        </Button>
                     </Box>
                 </Box>
             </Modal>
+
             <Box sx={{ mb: 2 }}>
                 <Typography sx={{ mb: 1 }} variant="body2" color="textSecondary">
                     Нудиш некаква услуга која ја нема на листата?
                 </Typography>
                 <Button
+                    onClick={handleOpen}
                     sx={{
                         textAlign: 'center',
                         color: "#575A4B",
@@ -79,11 +120,10 @@ export const AddCompany = () => {
                             color: '#fff',
                         }
                     }}
-                    onClick={handleOpen}
                 >
                     Постави ја тука
                 </Button>
             </Box>
         </>
     );
-}
+};

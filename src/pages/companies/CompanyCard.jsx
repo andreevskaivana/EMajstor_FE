@@ -16,6 +16,7 @@ export const CompanyCard = () => {
         setSortOrder(event.target.value);
     }
 
+    // console.log(id)
     const fetchJobs = () => {
         JobsService.fetchJobsByCategory(id).then(res => {
             if (res.data) {
@@ -50,7 +51,7 @@ export const CompanyCard = () => {
         <Container sx={{ mt: 4, mb: 4 }}>
             <Grid container justifyContent="space-between" alignItems="center" sx={{ marginBottom: '20px' }}>
                 <Grid item xs={12} sm={6}>
-                    <AddCompany />
+                    <AddCompany categoryId={id} />
                 </Grid>
                 <Grid item xs={12} sm={6} container direction="column" alignItems="flex-end">
                     <Typography variant="body2" color="textSecondary">

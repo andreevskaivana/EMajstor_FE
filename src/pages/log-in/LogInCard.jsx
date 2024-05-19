@@ -14,7 +14,7 @@ export const LogInCard = () => {
         e.preventDefault();
         try {
             const response = await axios.post("api/auth/signin", {
-                email: username,
+                username: username,
                 password: password
             });
             localStorage.setItem("token", response.data.token);
