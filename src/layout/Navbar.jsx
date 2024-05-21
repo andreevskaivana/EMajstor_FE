@@ -11,7 +11,8 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import { Link } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {setAuthorization} from "../config/axios.js";
 
 const pages = ['Понуди', 'Контакт', 'За Нас'];
 const pageLinks = ['/categories', '/contact', '/about'];
@@ -21,7 +22,7 @@ const settings = ['Кориснички профил', 'Кориснички п�
 export const Navbar = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
-
+    const navigate=useNavigate();
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
@@ -35,6 +36,11 @@ export const Navbar = () => {
 
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
+    };
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        setAuthorization(false);
+        navigate("/login");
     };
 
     return (
@@ -112,12 +118,13 @@ export const Navbar = () => {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-                            {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                            {settings.map((setting, index) => (
+                                <MenuItem key={index} onClick={index === settings.length - 1 ? handleLogout : handleCloseUserMenu}>
                                     <Typography textAlign="center">{setting}</Typography>
                                 </MenuItem>
                             ))}
                         </Menu>
+
                     </Box>
                 </Toolbar>
             </Container>
