@@ -30,6 +30,7 @@ export const JobCategoryCard = () => {
         fetchCategories();
     }, []);
 
+    console.log(categories)
     return (
         <Container sx={{ mt: 2, mb: 2 }}>
             <Grid container spacing={2}>

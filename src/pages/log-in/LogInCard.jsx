@@ -2,11 +2,11 @@ import { useState } from "react";
 import { Button, Grid, TextField, Container, FormControl } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Typography from "@mui/material/Typography";
-import axios, {setAuthorization} from "../../config/axios";
-import {Link,useNavigate} from "react-router-dom"; // Include BrowserRouter
+import axios, { setAuthorization } from "../../config/axios";
+import { Link, useNavigate } from "react-router-dom";
 
 export const LogInCard = () => {
-    const [username, setUsername] = useState("");
+    const [identifier, setIdentifier] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
@@ -14,10 +14,11 @@ export const LogInCard = () => {
         e.preventDefault();
         try {
             const response = await axios.post("api/auth/signin", {
-                username: username,
-                password: password
+                identifier,
+                password
             });
             localStorage.setItem("token", response.data.token);
+            localStorage.setItem("jobProviderId", response.data.appUser.jobProvider.id);
             setAuthorization(true);
             navigate("/categories");
         } catch (error) {
@@ -30,16 +31,13 @@ export const LogInCard = () => {
         <Grid container justifyContent="center" alignItems="center">
             <Container sx={{ mt: 6, mb: 2 }}>
                 <form onSubmit={handleLogin}>
-                    <Grid container justifyContent="center" alignItems="center"
-                          sx={{ mt: 2, mb: 2 }}>
-                        <AccountCircleIcon fontSize="large"/>
+                    <Grid container justifyContent="center" alignItems="center" sx={{ mt: 2, mb: 2 }}>
+                        <AccountCircleIcon fontSize="large" />
                     </Grid>
                     <Grid container justifyContent="center" alignItems="center">
                         <Typography variant="h6">Најава</Typography>
                     </Grid>
-
-                    <Grid container spacing={2} justifyContent="center"
-                          sx={{ mt: 4, mb: 2 }}>
+                    <Grid container spacing={2} justifyContent="center" sx={{ mt: 4, mb: 2 }}>
                         <FormControl sx={{ width: '50%' }}>
                             <TextField
                                 id="username"
@@ -47,8 +45,9 @@ export const LogInCard = () => {
                                 label="Внесете корисничко име"
                                 variant="outlined"
                                 margin="normal"
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
+                                value={identifier}
+                                onChange={(e) => setIdentifier(e.target.value)}
+                                required
                             />
                             <TextField
                                 id="password"
@@ -61,8 +60,7 @@ export const LogInCard = () => {
                                 onChange={(e) => setPassword(e.target.value)}
                             />
                         </FormControl>
-                        <Grid container spacing={2} justifyContent="center"
-                              sx={{ mt: 2, mb: 2 }}>
+                        <Grid container spacing={2} justifyContent="center" sx={{ mt: 2, mb: 2 }}>
                             <Button
                                 type="submit"
                                 variant="contained"
@@ -79,8 +77,7 @@ export const LogInCard = () => {
                                 Најави се
                             </Button>
                         </Grid>
-                        <Grid container spacing={2} justifyContent="center"
-                              sx={{ mt: 2 }}>
+                        <Grid container spacing={2} justifyContent="center" sx={{ mt: 2 }}>
                             <Link to="/register">
                                 Немаш профил?
                             </Link>

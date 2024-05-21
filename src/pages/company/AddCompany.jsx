@@ -3,13 +3,12 @@ import Box from "@mui/material/Box";
 import { useState } from "react";
 import { JobsService } from "../../services/jobs-service.js";
 
-export const AddCompany = ({ categoryId }) => {
+export const AddCompany = ({ categoryId, onJobAdded }) => {
     const [open, setOpen] = useState(false);
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState(0);
 
-    console.log(categoryId)
     const handleClose = () => {
         setOpen(false);
     };
@@ -31,8 +30,12 @@ export const AddCompany = ({ categoryId }) => {
     };
 
     const addJob = () => {
-        JobsService.addJob(title, description, price,jobProviderId,categoryId)
-            .then(() => {
+        const jobProviderId = localStorage.getItem("jobProviderId");
+
+        JobsService.addJob(title, description, price, jobProviderId, categoryId)
+            .then((response) => {
+                const newJob = response.data;
+                onJobAdded(newJob);  // Update the job list in the parent component
                 handleClose();
             })
             .catch((error) => {

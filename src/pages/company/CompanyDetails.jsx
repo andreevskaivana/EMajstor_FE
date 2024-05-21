@@ -97,7 +97,7 @@ export const CompanyDetails = () => {
                                         Локација на компанијата:
                                     </Typography>
                                     <Typography variant="body1" gutterBottom>
-                                        {provider.location.city}
+                                        {provider.location}
                                     </Typography>
                                 </CardContent>
                             </Grid>
