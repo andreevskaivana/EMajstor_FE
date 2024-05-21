@@ -8,7 +8,6 @@ export const JobsService = {
         return instance.post(`/api/job/grade-job/${jobId}?grade=${grade}`);
     },
     addJob: (title, description, price, jobProviderId, categoryId) => {
-        // Ensure categoryId is an array of numbers
         const categoryIds = Array.isArray(categoryId) ? categoryId.map(Number) : [Number(categoryId)];
 
         return instance.post(`/api/job/add-job`, {

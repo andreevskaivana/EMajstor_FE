@@ -17,7 +17,7 @@ import {setAuthorization} from "../config/axios.js";
 const pages = ['Понуди', 'Контакт', 'За Нас'];
 const pageLinks = ['/categories', '/contact', '/about'];
 
-const settings = ['Кориснички профил', 'Кориснички подесувања', 'Одјава'];
+const settings = ['Кориснички профил',  'Одјава'];
 
 export const Navbar = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -42,7 +42,10 @@ export const Navbar = () => {
         setAuthorization(false);
         navigate("/login");
     };
-
+    const handleProfile = () => {
+        navigate("/profile");
+        handleCloseUserMenu();
+    };
     return (
         <AppBar position="static" sx={{ backgroundColor: 'rgba(129, 108, 97, 0.8)', backdropFilter: 'blur(10px)' }}>
             <Container maxWidth="xl">
@@ -119,8 +122,7 @@ export const Navbar = () => {
                             onClose={handleCloseUserMenu}
                         >
                             {settings.map((setting, index) => (
-                                <MenuItem key={index} onClick={index === settings.length - 1 ? handleLogout : handleCloseUserMenu}>
-                                    <Typography textAlign="center">{setting}</Typography>
+                                <MenuItem key={index} onClick={index === settings.length - 1 ? handleLogout : handleProfile}>                                    <Typography textAlign="center">{setting}</Typography>
                                 </MenuItem>
                             ))}
                         </Menu>

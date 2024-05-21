@@ -11,6 +11,7 @@ import {HomePage} from "./pages/home/HomePage.jsx";
 import {Asset} from "./Asset.jsx"
 import {AboutUs} from "../src/pages/about/AboutUs.jsx"
 import {Contact} from "../src/pages/contact/Contact.jsx"
+import {UserProfile} from "./pages/user-profile/UserProfile.jsx";
 function App() {
     return (
         <Router>
@@ -26,6 +27,7 @@ function App() {
                 <Route path="/asset" element={<Asset/>}/>
                 <Route path="/about" element={<AboutUs/>}/>
                 <Route path="/contact" element={<Contact/>}/>
+                <Route path="/profile" element={<UserProfile/>}/>
                 <Route path="*" element={<Navigate to="/home"/>}/>
             </Routes>
         </Router>

@@ -19,6 +19,7 @@ export const LogInCard = () => {
             });
             localStorage.setItem("token", response.data.token);
             localStorage.setItem("jobProviderId", response.data.appUser.jobProvider.id);
+            localStorage.setItem("appUserId",response.data.appUser.id); 
             setAuthorization(true);
             navigate("/categories");
         } catch (error) {

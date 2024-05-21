@@ -35,7 +35,7 @@ export const AddCompany = ({ categoryId, onJobAdded }) => {
         JobsService.addJob(title, description, price, jobProviderId, categoryId)
             .then((response) => {
                 const newJob = response.data;
-                onJobAdded(newJob);  // Update the job list in the parent component
+                onJobAdded(newJob);
                 handleClose();
             })
             .catch((error) => {
