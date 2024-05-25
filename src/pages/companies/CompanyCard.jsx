@@ -1,14 +1,14 @@
-import { useEffect, useState } from 'react';
-import { Button, CardActions, Container, Grid, Card, Select, MenuItem } from '@mui/material';
+import {useEffect, useState} from 'react';
+import {Button, CardActions, Container, Grid, Card, Select, MenuItem} from '@mui/material';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import { Link, useParams } from "react-router-dom";
-import { JobsService } from "../../services/jobs-service.js";
-import { CompanyRating } from "../rating/CompanyRating.jsx";
-import { AddCompany } from "../company/AddCompany.jsx";
+import {Link, useParams} from "react-router-dom";
+import {JobsService} from "../../services/jobs-service.js";
+import {CompanyRating} from "../rating/CompanyRating.jsx";
+import {AddCompany} from "../company/AddCompany.jsx";
 
 export const CompanyCard = () => {
-    const { id } = useParams();
+    const {id} = useParams();
     const [jobs, setJobs] = useState([]);
     const [sortOrder, setSortOrder] = useState("asc");
 
@@ -50,11 +50,24 @@ export const CompanyCard = () => {
         setJobs((prevJobs) => [...prevJobs, newJob]);
     };
 
+    const handleRatingChange = (jobId, newRating) => {
+        setJobs(prevJobs =>
+            prevJobs.map(job =>
+                job.job_id === jobId ? {
+                    ...job,
+                    number_reviews: job.number_reviews + 1,
+                    total_grades: job.total_grades + newRating,
+                    rating: ((job.total_grades + newRating) / (job.number_reviews + 1)).toFixed(2)
+                } : job
+            )
+        );
+    };
+
     return (
-        <Container sx={{ mt: 4, mb: 4 }}>
-            <Grid container justifyContent="space-between" alignItems="center" sx={{ marginBottom: '20px' }}>
+        <Container sx={{mt: 4, mb: 4}}>
+            <Grid container justifyContent="space-between" alignItems="center" sx={{marginBottom: '20px'}}>
                 <Grid item xs={12} sm={6}>
-                    <AddCompany categoryId={id} onJobAdded={handleJobAdded} />
+                    <AddCompany categoryId={id} onJobAdded={handleJobAdded}/>
                 </Grid>
                 <Grid item xs={12} sm={6} container direction="column" alignItems="flex-end">
                     <Typography variant="body2" color="textSecondary">
@@ -64,7 +77,7 @@ export const CompanyCard = () => {
                         value={sortOrder}
                         onChange={handleSortChange}
                         displayEmpty
-                        inputProps={{ 'aria-label': 'Sort Order' }}
+                        inputProps={{'aria-label': 'Sort Order'}}
                     >
                         <MenuItem value="asc">Најниски до највисоки цени</MenuItem>
                         <MenuItem value="desc">Највисоки до најниски цени</MenuItem>
@@ -78,7 +91,7 @@ export const CompanyCard = () => {
                     boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
                     marginBottom: '16px'
                 }}>
-                    <Grid container spacing={2} sx={{ mt: 2 }}>
+                    <Grid container spacing={2} sx={{mt: 2}}>
                         <Grid item xs={12} sx={{
                             textAlign: 'center',
                             padding: '16px',
@@ -90,8 +103,8 @@ export const CompanyCard = () => {
                         </Grid>
                         <Grid container item xs={12} spacing={2}>
                             <Grid item xs={12} sm={6}>
-                                <CardContent sx={{ textAlign: 'center' }}>
-                                    <Typography variant="body1" gutterBottom >
+                                <CardContent sx={{textAlign: 'center'}}>
+                                    <Typography variant="body1" gutterBottom>
                                         Опис на работа: {job.description}
                                     </Typography>
                                     <Typography variant="body1" gutterBottom>
@@ -121,11 +134,12 @@ export const CompanyCard = () => {
                                 </CardContent>
                             </Grid>
                             <Grid item xs={12} sm={6}>
-                                <CardContent sx={{ textAlign: 'center' }}>
+                                <CardContent sx={{textAlign: 'center'}}>
                                     <Typography variant="body1" gutterBottom>
-                                        Просечна оцена на услуга: {job.number_reviews > 0 ? (job.total_grades / job.number_reviews).toFixed(2) : "Нема оцени"}
+                                        Просечна оцена на услуга: {job.grade ? job.grade.toFixed(2) : "Нема оцени"}
                                     </Typography>
-                                    <CompanyRating jobId={job.job_id} />
+                                    <CompanyRating jobId={job.job_id} onRatingChange={handleRatingChange}
+                                                   initialRating={job.rating}/>
                                 </CardContent>
                             </Grid>
                         </Grid>
