@@ -11,7 +11,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import {setAuthorization} from "../config/axios.js";
 
 const pages = ['Понуди', 'Контакт', 'За Нас'];
@@ -23,6 +23,7 @@ export const Navbar = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const navigate=useNavigate();
+    const location =useLocation();
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
@@ -39,6 +40,8 @@ export const Navbar = () => {
     };
     const handleLogout = () => {
         localStorage.removeItem("token");
+        localStorage.removeItem("appUserId");
+        localStorage.removeItem("jobProviderId");
         setAuthorization(false);
         navigate("/login");
     };
@@ -46,6 +49,8 @@ export const Navbar = () => {
         navigate("/profile");
         handleCloseUserMenu();
     };
+    const  showProfileIcon = location.pathname!=='/home' &&location.pathname !== '/login' && location.pathname !== '/register';
+
     return (
         <AppBar position="static" sx={{ backgroundColor: 'rgba(129, 108, 97, 0.8)', backdropFilter: 'blur(10px)' }}>
             <Container maxWidth="xl">
@@ -99,35 +104,37 @@ export const Navbar = () => {
                             </Button>
                         ))}
                     </Box>
-                    <Box sx={{ flexGrow: 0 }}>
-                        <Tooltip title="Кориснички профил">
-                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar src="/static/images/avatar/2.jpg" sx={{ backgroundColor: '#ffffff', color: '#2A2C24' }} />
-                            </IconButton>
-                        </Tooltip>
-                        <Menu
-                            sx={{ mt: '45px' }}
-                            id="menu-appbar"
-                            anchorEl={anchorElUser}
-                            anchorOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            open={Boolean(anchorElUser)}
-                            onClose={handleCloseUserMenu}
-                        >
-                            {settings.map((setting, index) => (
-                                <MenuItem key={index} onClick={index === settings.length - 1 ? handleLogout : handleProfile}>                                    <Typography textAlign="center">{setting}</Typography>
-                                </MenuItem>
-                            ))}
-                        </Menu>
-
-                    </Box>
+                    {showProfileIcon && (
+                        <Box sx={{ flexGrow: 0 }}>
+                            <Tooltip title="Кориснички профил">
+                                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                                    <Avatar src="/static/images/avatar/2.jpg" sx={{ backgroundColor: '#ffffff', color: '#2A2C24' }} />
+                                </IconButton>
+                            </Tooltip>
+                            <Menu
+                                sx={{ mt: '45px' }}
+                                id="menu-appbar"
+                                anchorEl={anchorElUser}
+                                anchorOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                keepMounted
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                open={Boolean(anchorElUser)}
+                                onClose={handleCloseUserMenu}
+                            >
+                                {settings.map((setting, index) => (
+                                    <MenuItem key={index} onClick={index === settings.length - 1 ? handleLogout : handleProfile}>
+                                        <Typography textAlign="center">{setting}</Typography>
+                                    </MenuItem>
+                                ))}
+                            </Menu>
+                        </Box>
+                    )}
                 </Toolbar>
             </Container>
         </AppBar>

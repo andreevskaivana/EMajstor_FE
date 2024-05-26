@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { UserService } from "../../services/user-service.js";
 import { Card, CardContent, Typography, Grid, Container, Avatar, Box, Divider } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import {useNavigate} from "react-router-dom";
 
 export const UserProfile = () => {
     const [user, setUser] = useState({
@@ -10,10 +11,10 @@ export const UserProfile = () => {
         email: '',
         phoneNumber: ''
     });
+    const navigate = useNavigate();
 
     const getUserProfile = () => {
         const appUserId = localStorage.getItem("appUserId");
-        console.log(appUserId);
         UserService.getUserById(appUserId)
             .then(res => {
                 if (res.data) {
@@ -25,8 +26,13 @@ export const UserProfile = () => {
     };
 
     useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            navigate("/login");
+            return;
+        }
         getUserProfile();
-    }, []);
+    }, [navigate]);
 
     const getInitials = (firstName, lastName) => {
         if (firstName && lastName) {
