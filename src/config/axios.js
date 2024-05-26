@@ -1,6 +1,6 @@
 import axios from "axios";
 const instance = axios.create({
-    baseURL: import.meta.env.VITE_API_BASE_URL,
+    baseURL: "https://e-majstori.onrender.com/",
     headers: {
         "Access-Control-Allow-Origin": "*",
     }

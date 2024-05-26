@@ -102,23 +102,6 @@ export const CompanyDetails = () => {
                                 </CardContent>
                             </Grid>
                         </Grid>
-                        <CardActions sx={{justifyContent: 'center'}}>
-                            <Button
-                                component={Link}
-                                to={`/asset`}
-                                sx={{
-                                    color: "#575A4B",
-                                    borderRadius: '20px',
-                                    border: `1px solid #2A2C24`,
-                                    '&:hover': {
-                                        backgroundColor: '#2A2C24',
-                                        color: '#fff',
-                                    }
-                                }}
-                            >
-                                закажи термин
-                            </Button>
-                        </CardActions>
                     </Card>
                 ))}
             </Container>
