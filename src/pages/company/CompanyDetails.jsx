@@ -87,7 +87,7 @@ export const CompanyDetails = () => {
                                         Телефонски број:
                                     </Typography>
                                     <Typography variant="body1" gutterBottom>
-                                        {provider.phoneNumber}
+                                        {provider.appUser.phoneNumber}
                                     </Typography>
                                 </CardContent>
                             </Grid>
@@ -97,7 +97,7 @@ export const CompanyDetails = () => {
                                         Локација на компанијата:
                                     </Typography>
                                     <Typography variant="body1" gutterBottom>
-                                        {provider.location}
+                                        {provider.location.city}
                                     </Typography>
                                 </CardContent>
                             </Grid>
